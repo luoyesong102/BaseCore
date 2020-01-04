@@ -3,10 +3,10 @@
 
 # 说明  
  功能:VUE+WEBAPI,基础权限管理,统一认证管理任务管理平台  
- 中间件:JWT认证,异常,配置管理,sql管理，swagger接口管理 
- 组件:ioc,反射，消息，db(支持mssql和mysql)，请求响应格式，DB验证，业务对象验证 
- 部署:nginx+docker+k8s部署 
- 微服务:cap,kong,istio运用 
+ 中间件:JWT认证,异常,配置管理,sql管理，swagger接口管理  
+ 组件:ioc,反射，消息，db(支持mssql和mysql)，请求响应格式，DB验证，业务对象验证  
+ 部署:nginx+docker+k8s部署  
+ 微服务:cap,kong,istio运用  
 
 .NET Docker 发布 
 # 前提条件  
