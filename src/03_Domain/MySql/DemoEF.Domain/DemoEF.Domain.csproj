@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\04_Infrastructure\SAAS.DB\SAAS.DB.EfCore\SAAS.Framework.Orm.EfCore.csproj" />
+    <ProjectReference Include="..\..\..\04_Infrastructure\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC.csproj" />
+  </ItemGroup>
+
+</Project>

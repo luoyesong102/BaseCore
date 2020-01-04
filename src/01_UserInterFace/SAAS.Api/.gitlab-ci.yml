@@ -1,0 +1,19 @@
+build_image:
+  script:
+    - cd /home/gitproject
+    - rm -rf /home/gitproject/Saas-Api
+    - git clone https://github.com/luoyesong102/BaseCore.git
+    - cd ./Saas-Api
+    - dotnet build --configuration Release 
+   # - rm -rf /home/project/Saas-Api
+    - docker stop gitci
+    - docker rm gitci
+    - docker rmi gitciimages
+    - dotnet publish "/home/gitproject/Saas-Api/src/01_UserInterFace/SAAS.Api/SAAS.Api.csproj" -c Release --output /home/project/Saas-Api
+    - cd /home/project/Saas-Api
+    - docker build -t gitciimages .
+    - docker run -d -v /home/project/Saas-Api:/app -p 8088:80 --name gitci gitciimages
+    #- docker pull  luoyesong102/saas.api:1.0.1
+    #- docker run --name=saas.api.docker -p 8088:80 -d  saas.api:1.0.1
+    #- docker build -t my-docker-image .
+    #- docker run -t -p 8088:80 my-docker-image

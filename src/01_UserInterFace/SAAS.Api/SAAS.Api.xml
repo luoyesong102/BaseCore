@@ -1,0 +1,807 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SAAS.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Controllers.BaseApiController">
+            <summary>
+            基础类，带自定义路由版本控制的
+            </summary>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.ExcelController">
+            <summary>
+            EXCEL操作
+            </summary>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.UpLoadController">
+            <summary>
+            上传接口[FromServices]IHostingEnvironment environment
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.UpLoadController.InsertPicture">
+            <summary>
+            上传图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.TestController">
+            <summary>
+            测试接口
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.TestController.GetList">
+            <summary>
+            列表页请求
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.TestController.GetDetail">
+            <summary>
+            详情页请求
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.TestController.Post(System.String)">
+            <summary>
+            修改接口
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.Sys.IconController">
+            <summary>
+            1：图标管理
+            2：业务对象的校验和验证
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.GetIconList(SAAS.FrameWork.ApiRequestPage{Common.Servicei.ViewModels.Users.CommonModel})">
+            <summary>
+            获取图标列表
+            </summary>
+            <param name="requserobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.FindByKeyword(System.String)">
+            <summary>
+            根据关键字查找KEY
+            </summary>
+            <param name="kw"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.CreateIcon(User.Service.ViewModels.Icon.IconCreateViewModel)">
+            <summary>
+            创建图标
+            </summary>
+            <param name="model">图标视图实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.GetIconById(System.Int32)">
+            <summary>
+            编辑图标
+            </summary>
+            <param name="id">图标ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.UpdateIcon(User.Service.ViewModels.Icon.IconUpdateViewModel)">
+            <summary>
+            保存编辑后的图标信息
+            </summary>
+            <param name="model">图标视图实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.DeleteIcon(System.String)">
+            <summary>
+            删除图标
+            </summary>
+            <param name="ids">图标ID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.Recover(System.String)">
+            <summary>
+            恢复图标
+            </summary>
+            <param name="ids">图标ID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.BatchIcon(Common.Service.ViewModels.Icon.IconBatchViewModel)">
+            <summary>
+            批量操作
+            </summary>
+            <param name="batchmodel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.IconController.Import(Common.Service.ViewModels.Icon.IconImportViewModel)">
+            <summary>
+            创建图标
+            </summary>
+            <param name="model">多行图标视图</param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.Sys.MenuController">
+            <summary>
+            1：菜单管理
+            2：业务对象的校验和验证
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.GetMenuList(SAAS.FrameWork.ApiRequestPage{Common.Service.DTOModel.Menu.MenuRequestPayload})">
+            <summary>
+            获取菜单列表
+            </summary>
+            <param name="requserobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.CreateMenu(Common.Service.DTOModel.Menu.MenuCreateViewModel)">
+            <summary>
+            创建菜单
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.Edit(System.Guid)">
+            <summary>
+            编辑角色
+            </summary>
+            <param name="Id">用户GUID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.Editmenu(Common.Service.DTOModel.Menu.MenuEditViewModel)">
+            <summary>
+            保存编辑后的用户信息
+            </summary>
+            <param name="model">用户视图实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.Tree(System.String)">
+            <summary>
+            菜单树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.DeleteMenu(System.String)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="ids">用户GUID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.Recover(System.String)">
+            <summary>
+            恢复图标
+            </summary>
+            <param name="ids">图标ID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuController.BatchMenu(Common.Service.ViewModels.Icon.IconBatchViewModel)">
+            <summary>
+            批量操作
+            </summary>
+            <param name="batchmodel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.Sys.MenuTreeHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.MenuTreeHelper.BuildTree(System.Collections.Generic.List{Common.Service.DTOModel.Menu.MenuTree},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="menus"></param>
+            <param name="selectedGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.Sys.PermissionController">
+            <summary>
+            1：权限管理
+            2：业务对象的校验和验证
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.GetPermissionList(SAAS.FrameWork.ApiRequestPage{Common.Service.DTOModel.Permission.PermissionRequestPayload})">
+            <summary>
+            获取图标列表
+            </summary>
+            <param name="requserobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.Createpermission(Common.Service.DTOModel.Permission.PermissionCreateViewModel)">
+            <summary>
+            创建角色
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.Edit(System.String)">
+            <summary>
+            编辑角色
+            </summary>
+            <param name="Id">用户GUID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.EditPermission(Common.Service.DTOModel.Permission.PermissionEditViewModel)">
+            <summary>
+            保存编辑后的用户信息
+            </summary>
+            <param name="model">用户视图实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.DeletePermission(System.String)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="ids">用户GUID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.Recover(System.String)">
+            <summary>
+            恢复图标
+            </summary>
+            <param name="ids">图标ID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.BatchPermission(Common.Service.ViewModels.Icon.IconBatchViewModel)">
+            <summary>
+            批量操作
+            </summary>
+            <param name="batchmodel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionController.PermissionTree(System.String)">
+            <summary>
+            角色-权限菜单树
+            </summary>
+            <param name="id">角色编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.PermissionTreeHelper.FillRecursive(System.Collections.Generic.List{Common.Service.DTOModel.Permission.PermissionMenuTree},System.Collections.Generic.List{SysBase.Domain.Models.SysPermissionWithAssignProperty},System.Nullable{System.Guid},System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="menus">菜单集合</param>
+            <param name="permissions">权限集合</param>
+            <param name="parentGuid">父级菜单GUID</param>
+            <param name="isSuperAdministrator">是否为超级管理员角色</param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.Sys.RoleController">
+            <summary>
+            1：角色管理
+            2：业务对象的校验和验证
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.FindListByUserGuid(System.Guid)">
+            <summary>
+            获取指定用户的角色列表
+            </summary>
+            <param name="guid">用户GUID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.GetRoleList(SAAS.FrameWork.ApiRequestPage{Common.Servicei.ViewModels.Users.CommonModel})">
+            <summary>
+            获取图标列表
+            </summary>
+            <param name="requserobj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.CreateRole(Common.Service.DTOModel.Role.RoleCreateViewModel)">
+            <summary>
+            创建角色
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.Edit(System.String)">
+            <summary>
+            编辑角色
+            </summary>
+            <param name="Id">用户GUID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.EditRole(Common.Service.DTOModel.Role.RoleEditViewModel)">
+            <summary>
+            保存编辑后的用户信息
+            </summary>
+            <param name="model">用户视图实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.DeleteRole(System.String)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="ids">用户GUID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.Recover(System.String)">
+            <summary>
+            恢复图标
+            </summary>
+            <param name="ids">图标ID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.BatchRole(Common.Service.ViewModels.Icon.IconBatchViewModel)">
+            <summary>
+            批量操作
+            </summary>
+            <param name="batchmodel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.FindSimpleList">
+            <summary>
+            查询所有角色列表(只包含主要的字段信息:name,code)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.RoleController.AssignPermission(Common.Service.DTOModel.Role.RoleAssignPermissionPayload)">
+            <summary>
+            为指定角色分配权限
+            </summary>
+            <param name="payload">角色分配权限的请求载体类</param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V1.Sys.UserController">
+            <summary>
+            1：用户管理
+            2：业务对象的校验和验证
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.GetDetail(SAAS.FrameWork.ApiRequestPage)">
+            <summary>
+            用户列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.CreateUser(Common.Servicei.ViewModels.Users.UserCreateViewModel)">
+            <summary>
+            创建用户
+            </summary>
+            <param name="model">用户视图实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.Edit(System.Guid)">
+            <summary>
+            编辑用户
+            </summary>
+            <param name="Id">用户GUID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.EditUser(Common.Servicei.ViewModels.Users.UserEditViewModel)">
+            <summary>
+            保存编辑后的用户信息
+            </summary>
+            <param name="model">用户视图实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.DeleteUser(System.String)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="ids">用户GUID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.Recover(System.String)">
+            <summary>
+            恢复图标
+            </summary>
+            <param name="ids">图标ID,多个以逗号分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.BatchUser(Common.Service.ViewModels.Icon.IconBatchViewModel)">
+            <summary>
+            批量操作
+            </summary>
+            <param name="batchmodel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V1.Sys.UserController.SaveRoles(Common.Servicei.ViewModels.Users.SaveUserRolesViewModel)">
+            <summary>
+            保存用户-角色的关系映射数据
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V2.TestController">
+            <summary>
+            测试接口V2
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V2.TestController.GetList">
+            <summary>
+            列表页请求
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V2.TestController.GetDetail">
+            <summary>
+            详情页请求
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Controllers.V2.TestV2_1Controller">
+            <summary>
+            测试接口V2.1
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Controllers.V2.TestV2_1Controller.GetList">
+            <summary>
+            列表页请求
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.MessageController">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.MessageController.Count">
+            <summary>
+            消息总条数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.MessageController.Init">
+            <summary>
+            初始化消息标题列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.MessageController.Content(System.Int32)">
+            <summary>
+            获取指定ID的消息内容
+            </summary>
+            <param name="msgid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.MessageController.HasRead(System.Int32)">
+            <summary>
+            将消息标为已读
+            </summary>
+            <param name="msgid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.MessageController.RemoveRead(System.Int32)">
+            <summary>
+             删除已读消息
+            </summary>
+            <param name="msgid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.MessageController.Restore(System.Int32)">
+            <summary>
+            恢复已删消息
+            </summary>
+            <param name="msgid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.HealthController">
+            <summary>
+            健康检查
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.HealthController.KeepAlive">
+            <summary>
+            定时调用此接口让站点一直保持运行状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.TaskBackGroundController">
+            <summary>
+            任务列表
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.TaskBackGroundController.GetJobs">
+            <summary>
+            获取所有的作业
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.TaskBackGroundController.GetRunLog">
+            <summary>
+            获取作业运行日志string taskName, string groupName, int page = 1
+            </summary>
+            <param name="taskName"></param>
+            <param name="groupName"></param>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.TaskBackGroundController.Add(TaskService.Models.TaskOptions)">
+            <summary>
+            添加任务
+            </summary>
+            <param name="taskOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.AccountController">
+            <summary>
+            登录及菜单权限列表
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.AccountController.#ctor(User.Service.IUserService)">
+            <summary>
+            
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAAS.Api.AccountController.getUserInfo">
+            <summary>
+            获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.AccountController.Menu">
+            <summary>
+            获取权限菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.MenuItemHelper.BuildTree(System.Collections.Generic.List{Common.Service.DTOModel.Menu.MenuItem},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="menus"></param>
+            <param name="selectedGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.AuthController">
+            <summary>
+            认证
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.AuthController.Login(OauthService.OauthModel.LoginRequest)">
+            <summary>
+            Log in
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.AuthController.RefreshToken(OauthService.OauthModel.RefreshTokenRequest)">
+            <summary>
+            RefreshToken
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.AuthController.GetUserInfo">
+            <summary>
+            Get User Info
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SAAS.Api.Router.CustomRouteAttribute">
+            <summary>
+            自定义路由 [CustomRoute(ApiVersions.v1, "info")]  /api/{version=v1}/[controler]/[action]
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Router.CustomRouteAttribute.#ctor(System.String)">
+            <summary>
+            自定义路由构造函数
+            </summary>
+            <param name="actionName"></param>
+        </member>
+        <member name="M:SAAS.Api.Router.CustomRouteAttribute.#ctor(SAAS.Api.Router.ApiVersions,System.String)">
+            <summary>
+            自定义路由构造函数
+            </summary>
+            <param name="actionName"></param>
+            <param name="version"></param>
+        </member>
+        <member name="P:SAAS.Api.Router.CustomRouteAttribute.GroupName">
+            <summary>
+            分组名称
+            </summary>
+        </member>
+        <member name="T:SAAS.Api.Router.ApiVersions">
+            <summary>
+            Api接口版本 每次新版本增加一个
+            </summary>
+        </member>
+        <member name="F:SAAS.Api.Router.ApiVersions.v1">
+            <summary>
+            v1
+            </summary>
+        </member>
+        <member name="T:SAAS.Api.Validate.ValidateModelAttribute">
+            <summary>
+            DB验证类在此收集错误信息
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Validate.ValidateModelAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            DB字段长度，空值判断等特性在此进行判断
+            </summary>
+            <param name="actionContext"></param>
+        </member>
+        <member name="M:SAAS.Api.InitService.ConfigureRedisRepositoryService(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            数据库自动生成ID注入
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:SAAS.Api.InitService.ConfigureJWTAuthenticationService(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            配置JWT身份认证--配置对象注入（Ioption）
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:SAAS.Api.InitService.ConfigureAuthenticationService(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            配置身份认证
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:SAAS.Api.InitService.GetSwaggerOpntion">
+            <summary>
+            项目接口文档配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAAS.Api.InitService.ConfigureAssemblyRepositoryService(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            查找程序集服务注册接口-复杂对象会报错
+            </summary>
+            <param name="services"></param>
+            <param name="Configuration"></param>
+        </member>
+        <member name="M:SAAS.Api.InitService.ResolveAllTypes(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.String[])">
+            <summary>
+            查找程序集服务注册接口
+            </summary>
+            <param name="services"></param>
+            <param name="solutionPrefix"></param>
+            <param name="projectSuffixes"></param>
+        </member>
+        <member name="M:SAAS.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            启动项
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:SAAS.Api.Startup.Configuration">
+            <summary>
+            全局配置项
+            </summary>
+        </member>
+        <member name="P:SAAS.Api.Startup.Engine">
+            <summary>
+            定义服务引擎
+            </summary>
+        </member>
+        <member name="F:SAAS.Api.Startup.CURRENT_SWAGGER_OPTIONS">
+            <summary>
+            项目接口文档配置
+            </summary>
+        </member>
+        <member name="M:SAAS.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册服务
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:SAAS.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider,Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+            <summary>
+            处理服务中间件
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="provider"></param>
+            <param name="cache"></param>
+        </member>
+        <member name="T:YH.SAAS.APITokenExtensions.UserAuthorizeAttribute">
+            <summary>
+            会员登录验证[UserAuthorize]
+            </summary>
+        </member>
+        <member name="T:YH.SAAS.API.HandleExceptionAttribute">
+            <summary>
+            MVC特性异常拦截,目前是弃用，采用拦截http中间件来进行处理 // options.Filters.Add(typeof(WebHandleExceptionAttribute)); // 异常处理
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.HandleException(System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.BuildAjaxJsonActionResult(System.Exception,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="ex"></param>
+            <param name="isLocalRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.BuildAjaxHtmlActionResult(System.Exception,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="ex"></param>
+            <param name="isLocalRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.BuildAjaxXmlActionResult(System.Exception,System.Boolean)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.BuildWebPageActionResult(System.Exception,System.Boolean,Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.BuildResult(System.Exception,Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.HandleExceptionAttribute.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:YH.SAAS.API.HandleErrorInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YH.SAAS.API.HandleErrorInfo.ControllerName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YH.SAAS.API.HandleErrorInfo.ActionName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YH.SAAS.API.HandleErrorInfo.Exception">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:YH.SAAS.API.WebHandleExceptionAttribute">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.WebHandleExceptionAttribute.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.WebHandleExceptionAttribute.HandleException(System.Exception)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.WebHandleExceptionAttribute.GetExceptionInfo(System.Exception,System.Boolean)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.WebHandleExceptionAttribute.BuildAjaxJsonActionResult(System.Exception,System.Boolean)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.WebHandleExceptionAttribute.BuildAjaxHtmlActionResult(System.Exception,System.Boolean)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.WebHandleExceptionAttribute.BuildAjaxXmlActionResult(System.Exception,System.Boolean)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.SAAS.API.WebHandleExceptionAttribute.BuildWebPageActionResult(System.Exception,System.Boolean,Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

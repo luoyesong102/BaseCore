@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>.\SAAS.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\SAAS.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Dockerfile" />
+    <None Remove="Moxy.Api.xml" />
+    <None Remove="SAAS.Api.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SAAS.Api.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Configuration\Data\DbCommandFiles.config" />
+    <None Include="Configuration\Data\MessageCenter.config" />
+    <None Include="wwwroot\fonts\ionicons.143146fa.woff2" />
+    <None Include="wwwroot\img\error-401.98bba5b1.svg" />
+    <None Include="wwwroot\img\error-404.94756dcf.svg" />
+    <None Include="wwwroot\img\error-500.a371eabc.svg" />
+    <None Include="wwwroot\img\iconfont.28f25a95.svg" />
+    <None Include="wwwroot\img\ionicons.a2c4a261.svg" />
+    <None Include="wwwroot\js\app.a353ef7f.js" />
+    <None Include="wwwroot\js\app.ecbaf080.js" />
+    <None Include="wwwroot\js\app.efc27809.js" />
+    <None Include="wwwroot\js\chunk-0001fa77.ce931d7a.js" />
+    <None Include="wwwroot\js\chunk-0984dc60.08f71734.js" />
+    <None Include="wwwroot\js\chunk-1e41b45e.e7a3e29f.js" />
+    <None Include="wwwroot\js\chunk-21606df8.14f6f1ba.js" />
+    <None Include="wwwroot\js\chunk-2414e867.52f6eded.js" />
+    <None Include="wwwroot\js\chunk-2d0a4816.9667e2eb.js" />
+    <None Include="wwwroot\js\chunk-2d0a4bfc.2c8eccbf.js" />
+    <None Include="wwwroot\js\chunk-2d0b2acc.e8ef7edf.js" />
+    <None Include="wwwroot\js\chunk-2d0ba345.b25a1235.js" />
+    <None Include="wwwroot\js\chunk-2d0bd224.758b3946.js" />
+    <None Include="wwwroot\js\chunk-2d0d3900.57f9e2ce.js" />
+    <None Include="wwwroot\js\chunk-2d0df04b.7e5bb86d.js" />
+    <None Include="wwwroot\js\chunk-2d0e9aa8.ccb025d8.js" />
+    <None Include="wwwroot\js\chunk-2d0f07c3.bb22dd94.js" />
+    <None Include="wwwroot\js\chunk-2d229073.a1261006.js" />
+    <None Include="wwwroot\js\chunk-332c3bcd.df0c890d.js" />
+    <None Include="wwwroot\js\chunk-35a2a63e.abf04544.js" />
+    <None Include="wwwroot\js\chunk-53522aee.563c00f7.js" />
+    <None Include="wwwroot\js\chunk-6c8011cc.c7cede73.js" />
+    <None Include="wwwroot\js\chunk-74544602.1d7ec9d0.js" />
+    <None Include="wwwroot\js\chunk-74bd8b2e.a0c4ec71.js" />
+    <None Include="wwwroot\js\chunk-74ce84a6.b87bccc6.js" />
+    <None Include="wwwroot\js\chunk-7536a874.01ad3cb7.js" />
+    <None Include="wwwroot\js\chunk-79027c1e.1c121921.js" />
+    <None Include="wwwroot\js\chunk-aedf2c8a.7ea57a36.js" />
+    <None Include="wwwroot\js\chunk-aedf2c8a.bc5cf299.js" />
+    <None Include="wwwroot\js\chunk-b058da3c.5ddf4624.js" />
+    <None Include="wwwroot\js\chunk-b20555ae.8b8f595a.js" />
+    <None Include="wwwroot\js\chunk-cd9dea7e.51bfe386.js" />
+    <None Include="wwwroot\js\chunk-fd2d80d6.26abf825.js" />
+    <None Include="wwwroot\js\chunk-vendors.74ff44e9.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
+    <PackageReference Include="IdentityServer4" Version="2.5.0" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\02_Application\SAAS.MiddleService\CacheSqlXmlService\CacheSqlXmlService.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.MiddleService\ConfigurationService\ConfigurationService.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.MiddleService\ExceptionService\ExceptionMiddleService.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.MiddleService\Mapper.Service\MapperService.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.MiddleService\OauthService\OauthService.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.MiddleService\SAAS.Swagger\SwaggerService.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.MiddleService\TaskService\TaskService.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.Service\Demo.Service\Demo.Service.csproj" />
+    <ProjectReference Include="..\..\02_Application\SAAS.Service\User.Service\User.Service.csproj" />
+    <ProjectReference Include="..\..\04_Infrastructure\SAAS.FrameWork.Caches\SAAS.FrameWork.Caches\SAAS.FrameWork.Caches.csproj" />
+    <ProjectReference Include="..\..\04_Infrastructure\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

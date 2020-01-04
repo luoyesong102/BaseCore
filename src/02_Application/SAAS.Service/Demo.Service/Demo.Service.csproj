@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DependencyAutofacRegistrar.cs~RF8505cd7.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.3" />
+    <PackageReference Include="FluentValidation" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\03_Domain\MsSql\SysBase.Domain\SysBase.Domain.csproj" />
+    <ProjectReference Include="..\..\..\03_Domain\MySql\Demo.Domain\Demo.Domain.csproj" />
+    <ProjectReference Include="..\..\..\03_Domain\MySql\DemoEF.Domain\DemoEF.Domain.csproj" />
+    <ProjectReference Include="..\..\..\04_Infrastructure\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC.csproj" />
+    <ProjectReference Include="..\..\SAAS.MiddleService\CommonInterface\CommonInterface.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.3" />
+    <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\04_Infrastructure\SAAS.DB\SAAS.Framework.Orm.Dapper\SAAS.Framework.Orm.Dapper.csproj" />
+    <ProjectReference Include="..\..\..\04_Infrastructure\SAAS.FrameWork\SAAS.FrameWork\SAAS.FrameWork.csproj" />
+  </ItemGroup>
+
+</Project>

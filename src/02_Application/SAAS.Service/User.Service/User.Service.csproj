@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\03_Domain\MsSql\SysBase.Domain\SysBase.Domain.csproj" />
+    <ProjectReference Include="..\..\..\04_Infrastructure\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC\SAAS.FrameWork.IOC.csproj" />
+    <ProjectReference Include="..\..\SAAS.MiddleService\CommonInterface\CommonInterface.csproj" />
+    <ProjectReference Include="..\Common.Service\Common.Service.csproj" />
+  </ItemGroup>
+
+</Project>
