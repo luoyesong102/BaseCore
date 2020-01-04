@@ -8,7 +8,7 @@
  部署:nginx+docker+k8s部署  
  微服务:cap,kong,istio运用  
 
-.NET Docker 发布 
+# .NET Docker 发布 
 # 前提条件  
 Docker基本命令  
 构建自己的镜像  
