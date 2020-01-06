@@ -222,7 +222,42 @@ namespace SAAS.Framework.Orm.EfCore.UnitWork
             });
             return true;
         }
+        /// <summary>
+        /// 查询多条数据-根据传进来的lambda和排序的lambda查询
+        /// </summary>
+        /// <typeparam name="s"></typeparam>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderbyLambda"></param>
+        /// <param name="isAsc"></param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> GetList<s>(int pageIndex, int pageSize,
+            System.Linq.Expressions.Expression<Func<TEntity, bool>> whereLambda,
+            System.Linq.Expressions.Expression<Func<TEntity, s>> orderbyLambda, bool isAsc)
+        {
+            var temp = _context.Set<TEntity>().Where(whereLambda);
+            List<TEntity> list = null;
+            if (isAsc)//升序
+            {
+                list = await temp.OrderBy(orderbyLambda).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            }
+            else//降序
+            {
+                list = await temp.OrderByDescending(orderbyLambda).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            }
+            return list;
+        }
 
+        /// <summary>
+        /// 获取总条数
+        /// </summary>
+        /// <param name="whereLambda"></param>
+        /// <returns></returns>
+        public async Task<int> GetTotalCount(Expression<Func<TEntity, bool>> whereLambda)
+        {
+            return await _context.Set<TEntity>().Where(whereLambda).CountAsync();
+        }
 
 
 

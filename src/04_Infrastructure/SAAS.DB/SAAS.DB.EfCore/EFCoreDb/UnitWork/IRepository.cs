@@ -125,6 +125,11 @@ namespace SAAS.Framework.Orm.EfCore.UnitWork
         /// <param name="predicate"></param>
         /// <returns></returns>
         Task<bool> DeleteAsync<T>(Expression<Func<T, bool>> predicate) where T : class;
+        //查询分页
+        Task<List<TEntity>> GetList<s>(int pageIndex, int pageSize, System.Linq.Expressions.Expression<Func<TEntity, bool>> whereLambda, System.Linq.Expressions.Expression<Func<TEntity, s>> orderbyLambda, bool isAsc);
+
+        //获取总条数
+        Task<int> GetTotalCount(Expression<Func<TEntity, bool>> whereLambda);
         #region 表达式的操作
 
         /// <summary>

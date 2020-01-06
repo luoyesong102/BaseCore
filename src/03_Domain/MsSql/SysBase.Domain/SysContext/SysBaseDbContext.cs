@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 namespace SysBase.Domain.Models
 {
     /// <summary>
-    /// 由于注入的问题 数据库连接先进行注入，关联关系暂时不启用（延时加载和显示加载include）
-    /// 启动延迟加载https://blog.csdn.net/xhl_james/article/details/93136893
+    /// 由于注入的问题 数据库连接先进行注入，延时加载微软已经不再启用（需要的话需要扩展引用包启动延迟加载https://blog.csdn.net/xhl_james/article/details/93136893）
+    /// 封装会使用显示加载include
     /// </summary>
     public partial class SysBaseDbContext : DbContext
     {
