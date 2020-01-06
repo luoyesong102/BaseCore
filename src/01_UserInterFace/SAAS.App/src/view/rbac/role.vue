@@ -168,7 +168,7 @@ export default {
         mode: "create",
         selection: [],
         fields: {
-          code: "",
+          id: "",
           name: "",
           avatar: "",
           isLocked: 0,
@@ -192,16 +192,12 @@ export default {
           query: {
             totalCount: 0,
             pageSize: 20,
-            currentPage: 1,
+            PageIndex: 1,
             kw: "",
-            isDeleted: 0,
-            status: -1,
-            sort: [
-              {
-                direct: "DESC",
-                field: "CreatedOn"
-              }
-            ]
+             where:{ isDeleted: -1,
+            status: -1},
+             SortCol: 1, 
+            OrderBy:"id"
           },
           sources: {
             isDeletedSources: [
@@ -502,14 +498,14 @@ export default {
       return this.formModel.selection;
     },
     selectedRowsId() {
-      return this.formModel.selection.map(x => x.code);
+      return this.formModel.selection.map(x => x.id);
     }
   },
   methods: {
     loadRoleList() {
       getRoleList(this.stores.role.query).then(res => {
-        this.stores.role.data = res.data.data;
-        this.stores.role.query.totalCount = res.data.totalCount;
+          this.stores.role.data = res.data.data.body;
+        this.stores.role.query.totalCount = res.data.data.count;
       });
     },
     handleOpenFormWindow() {
@@ -528,7 +524,7 @@ export default {
     handleEdit(params) {
       this.handleSwitchFormModeToEdit();
       this.handleResetFormRole();
-      this.doLoadRole(params.row.code);
+      this.doLoadRole(params.row.id);
     },
     handleSelect(selection, row) {},
     handleSelectionChange(selection) {
@@ -558,22 +554,22 @@ export default {
     },
     doCreateRole() {
       createRole(this.formModel.fields).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("添加成功");
           this.loadRoleList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
         this.handleCloseFormWindow();
       });
     },
     doEditRole() {
       editRole(this.formModel.fields).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("编辑成功");
           this.loadRoleList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
         this.handleCloseFormWindow();
       });
@@ -590,13 +586,13 @@ export default {
       });
       return _valid;
     },
-    doLoadRole(code) {
-      loadRole({ code: code }).then(res => {
+    doLoadRole(id) {
+      loadRole({ id: id }).then(res => {
         this.formModel.fields = res.data.data;
       });
     },
     handleDelete(params) {
-      this.doDelete(params.row.code);
+      this.doDelete(params.row.id);
     },
     doDelete(ids) {
       if (!ids) {
@@ -604,11 +600,11 @@ export default {
         return;
       }
       deleteRole(ids).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("删除成功");
           this.loadRoleList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
     },
@@ -634,12 +630,12 @@ export default {
         command: command,
         ids: this.selectedRowsId.join(",")
       }).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("操作成功");
           this.loadRoleList();
           this.formModel.selection=[];
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
         this.$Modal.remove();
       });
@@ -654,7 +650,7 @@ export default {
       return "";
     },
     handlePageChanged(page) {
-      this.stores.role.query.currentPage = page;
+      this.stores.role.query.PageIndex = page;
       this.loadRoleList();
     },
     handlePageSizeChanged(pageSize) {

@@ -19,6 +19,7 @@
         :row-class-name="rowClsRender"
         @on-page-change="handlePageChanged"
         @on-page-size-change="handlePageSizeChanged"
+         @on-sort-change="handleSortChange"
       >
         <div slot="search">
           <section class="dnc-toolbar-wrap">
@@ -36,7 +37,7 @@
                     >
                       <Select
                         slot="prepend"
-                        v-model="stores.icon.query.isDeleted"
+                        v-model="stores.icon.query.where.isDeleted"
                         @on-change="handleSearchIcon"
                         placeholder="删除状态"
                         style="width:60px;"
@@ -49,7 +50,7 @@
                       </Select>
                       <Select
                         slot="prepend"
-                        v-model="stores.icon.query.status"
+                        v-model="stores.icon.query.where.status"
                         @on-change="handleSearchIcon"
                         placeholder="图标状态"
                         style="width:60px;"
@@ -253,16 +254,12 @@ export default {
           query: {
             totalCount: 0,
             pageSize: 20,
-            currentPage: 1,
+            PageIndex: 1,
             kw: "",
-            isDeleted: 0,
-            status: -1,
-            sort: [
-              {
-                direct: "DESC",
-                field: "id"
-              }
-            ]
+            SortCol: 1, 
+            OrderBy:"Id",
+            where:{ isDeleted: 0,
+            status: -1}
           },
           sources: {
             isDeletedSources: [
@@ -474,94 +471,100 @@ export default {
   },
   computed: {
     formTitle() {
-      if (this.formModel.mode === "create") {
+      if (this.formModel.mode == "create") {
         return "创建图标";
       }
-      if (this.formModel.mode === "edit") {
+      if (this.formModel.mode == "edit") {
         return "编辑图标";
       }
       return "";
     },
-    selectedRows() {
+    selectedRows() { //选中的行
       return this.formModel.selection;
     },
-    selectedRowsId() {
+    selectedRowsId() {//选中的行的主键ID集合
       return this.formModel.selection.map(x => x.id);
     }
   },
   methods: {
     loadIconList() {
       getIconList(this.stores.icon.query).then(res => {
-        this.stores.icon.data = res.data.data;
-        this.stores.icon.query.totalCount = res.data.totalCount;
-      });
+        this.stores.icon.data = res.data.data.body;
+        debugger
+        this.stores.icon.query.totalCount = res.data.data.count;
+      });//加载datatable集合列表
     },
-    handleOpenFormWindow() {
+    handleSortChange(column) {
+      this.stores.icon.query.SortCol = column.order;
+      this.stores.icon.query.OrderBy = column.key;
+      this.loadIconList();
+    },
+    handleOpenFormWindow() {//显示from表单页面
       this.formModel.opened = true;
     },
-    handleCloseFormWindow() {
+    handleCloseFormWindow() {//关闭from表单页面
       this.formModel.opened = false;
     },
-    handleSwitchFormModeToCreate() {
+    handleSwitchFormModeToCreate() {//创建表单
       this.formModel.mode = "create";
     },
-    handleSwitchFormModeToEdit() {
+    handleSwitchFormModeToEdit() {//编辑表单
       this.formModel.mode = "edit";
       this.handleOpenFormWindow();
     },
-    handleEdit(params) {
+    handleEdit(params) {//编辑表单
       this.handleSwitchFormModeToEdit();
       this.handleResetFormIcon();
-      this.doLoadIcon(params.row.id);
+      this.doLoadIcon(params.row.id);//获取表单显示值
     },
     handleSelect(selection, row) {},
     handleSelectionChange(selection) {
       this.formModel.selection = selection;
-    },
+    },//选中
     handleRefresh() {
       this.loadIconList();
-    },
+    },//刷新
     handleShowCreateWindow() {
       this.handleSwitchFormModeToCreate();
       this.handleOpenFormWindow();
       this.handleResetFormIcon();
-    },
+    },//显示创建页面
     handleSubmitIcon() {
       let valid = this.validateIconForm();
       if (valid) {
-        if (this.formModel.mode === "create") {
+        if (this.formModel.mode == "create") {
           this.doCreateIcon();
         }
-        if (this.formModel.mode === "edit") {
+        if (this.formModel.mode == "edit") {
           this.doEditIcon();
         }
       }
-    },
+    },//提交表单
     handleResetFormIcon() {
       this.$refs["formIcon"].resetFields();
-    },
+    },//重置表单
     doCreateIcon() {
       createIcon(this.formModel.fields).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success == true) {
+          this.$Message.success("执行成功");
           this.loadIconList();
           this.handleCloseFormWindow();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
-    },
+    },//创建表单
     doEditIcon() {
       editIcon(this.formModel.fields).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success == true) {
+          this.$Message.success("执行成功");
           this.loadIconList();
           this.handleCloseFormWindow();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
-    },
+    },//编辑表单
     validateIconForm() {
       let _valid = false;
       this.$refs["formIcon"].validate(valid => {
@@ -573,29 +576,31 @@ export default {
         }
       });
       return _valid;
-    },
+    },//验证表单
     doLoadIcon(id) {
       loadIcon({ id: id }).then(res => {
         this.formModel.fields = res.data.data;
       });
-    },
+    },//根据ID获取表单信息
     handleDelete(params) {
       this.doDelete(params.row.id);
-    },
+    },//删除表单
     doDelete(ids) {
       if (!ids) {
         this.$Message.warning("请选择至少一条数据");
         return;
       }
+
+ 
       deleteIcon(ids).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success == true) {
+          this.$Message.success("删除成功");
           this.loadIconList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
-    },
+    },//删除表单
     handleBatchCommand(command) {
       if (!this.selectedRowsId || this.selectedRowsId.length <= 0) {
         this.$Message.warning("请选择至少一条数据");
@@ -614,25 +619,26 @@ export default {
       });
     },
     doBatchCommand(command) {
+      debugger
       batchCommand({
         command: command,
         ids: this.selectedRowsId.join(",")
       }).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success == true) {
+          this.$Message.success("执行成功");
           this.handleCloseFormWindow();
           this.formModel.batchImport.opened = false;
           this.loadIconList();
           this.formModel.selection=[];
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
         this.$Modal.remove();
       });
-    },
+    },//批量操作
     handleSearchIcon() {
       this.loadIconList();
-    },
+    },//查询表单列表
     rowClsRender(row, index) {
       if (row.isDeleted) {
         return "table-row-disabled";
@@ -641,31 +647,32 @@ export default {
     },
     handleOpenBatchImportDrawer() {
       this.formModel.batchImport.opened = true;
-    },
+    },//显示批量导入
     handleBatchSubmitIcon() {
       var data = { icons: this.formModel.batchImport.icons };
       batchImportIcon(data).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success == true) {
+          this.$Message.success("执行成功");
           this.handleCloseFormWindow();
           this.formModel.batchImport.opened = false;
           this.loadIconList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
-    },
+    },//提交批量表单
     handlePageChanged(page) {
-      this.stores.icon.query.currentPage = page;
+     
+      this.stores.icon.query.PageIndex = page;
       this.loadIconList();
-    },
+    },//页面变更
     handlePageSizeChanged(pageSize) {
       this.stores.icon.query.pageSize = pageSize;
       this.loadIconList();
     }
-  },
+  },//页面页码变更
   mounted() {
     this.loadIconList();
-  }
+  }//加载页面数据
 };
 </script>

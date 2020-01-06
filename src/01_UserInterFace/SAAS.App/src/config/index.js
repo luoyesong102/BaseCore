@@ -2,7 +2,7 @@ export default {
   /**
    * @description 配置显示在浏览器标签的title
    */
-  title: 'DncZeus通用后台权限管理框架',
+  title: '通用后台权限管理框架',
   /**
    * @description token在Cookie中存储的天数，默认1天
    */
@@ -14,15 +14,16 @@ export default {
    */
   useI18n: false,
   /**
-   * @description api请求基础路径
+   * @description api请求基础路径47.104.191.190:8000  http://localhost:64832/
    */
   baseUrl: {
-    dev: 'http://vue.qingzhi.store/api/v1/',
-    pro: 'http://vue.qingzhi.store/api/v1/'
+    dev: 'http://localhost:64832/',
+    pro: 'http://localhost:64832/',
+    defaultPrefix:"api/v1/"
   },
   authUrl: {
-    dev: 'http://vue.qingzhi.store/api/oauth/auth',
-    pro: 'http://vue.qingzhi.store/api/oauth/auth'
+    dev: 'http://localhost:64832/api/Auth/Login',
+    pro: 'http://localhost:64832/api/Auth/Login'
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home

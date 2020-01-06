@@ -76,21 +76,21 @@ export default {
       for (var i = 0, len = this.stores.role.data.length; i < len; i++) {
         this.stores.role.data[i].selected = false;
       }
-      this.currentRoleCode = role.code;
+      this.currentRoleCode = role.id;
       role.selected = true;
       this.loadRolePermissionTree();
     },
     handleSaveRolePermissions() {
       var data = {
-        roleCode: this.currentRoleCode,
+        roleId: this.currentRoleCode,
         permissions: this.selectedPermissions
       };
       assignPermission(data).then(response => {
         var result = response.data;
-        if (result.code == 200) {
-          this.$Message.success(result.message);
+        if (result.success === true) {
+          this.$Message.success('分配成功');
         } else {
-          this.$Message.warning(result.message);
+          this.$Message.warning(result.error.errorMessage);
         }
       });
     },
@@ -166,7 +166,7 @@ export default {
                         "Checkbox",
                         {
                           props: {
-                            label: obj.code
+                            label: obj.id
                           }
                         },
                         obj.name
@@ -210,15 +210,15 @@ export default {
       if (checked) {
         for (let i = 0, len = permissions.length; i < len; i++) {
           var d = permissions[i];
-          var index = this.selectedPermissions.indexOf(d.code);
+          var index = this.selectedPermissions.indexOf(d.id);
           if (index == -1) {
-            this.selectedPermissions.push(d.code);
+            this.selectedPermissions.push(d.id);
           }
         }
       } else {
         for (let i = 0, len = permissions.length; i < len; i++) {
           var d = permissions[i];
-          var index = this.selectedPermissions.indexOf(d.code);
+          var index = this.selectedPermissions.indexOf(d.id);
           if (index !== -1) {
             this.selectedPermissions.splice(index, 1);
           }

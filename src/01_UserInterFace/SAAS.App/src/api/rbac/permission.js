@@ -2,7 +2,7 @@ import axios from '@/libs/api.request'
 
 export const getPermissionList = (data) => {
   return axios.request({
-    url: 'rbac/permission/list',
+    url: 'rbac/permission/permissionlist',
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export const getPermissionList = (data) => {
 // create
 export const createPermission = (data) => {
   return axios.request({
-    url: 'rbac/permission/create',
+    url: 'rbac/permission/createpermission',
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export const createPermission = (data) => {
 //edit
 export const loadPermission = (data) => {
   return axios.request({
-    url: 'rbac/permission/edit/' + data.code,
+    url: 'rbac/permission/editpermission/' + data.id,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export const loadPermission = (data) => {
 // edit submit
 export const editPermission = (data) => {
   return axios.request({
-    url: 'rbac/permission/edit',
+    url: 'rbac/permission/updatepermission',
     method: 'post',
     data
   })
@@ -37,7 +37,7 @@ export const editPermission = (data) => {
 // delete
 export const deletePermission = (ids) => {
   return axios.request({
-    url: 'rbac/permission/delete/' + ids,
+    url: 'rbac/permission/deletepermission/' + ids,
     method: 'get'
   })
 }
@@ -45,17 +45,17 @@ export const deletePermission = (ids) => {
 // batch command
 export const batchCommand = (data) => {
   return axios.request({
-    url: 'rbac/permission/batch',
-    method: 'get',
-    params: data
+    url: 'rbac/permission/batchpermission',
+    method: 'post',
+    data
   })
 }
 
 
 //load role-permission tree
-export const loadPermissionTree = (role_code) => {
+export const loadPermissionTree = (roleid) => {
   return axios.request({
-    url: 'rbac/permission/permission_tree/' + role_code,
+    url: 'rbac/permission/permissiontree/' + roleid,
     method: 'get'
   })
 }

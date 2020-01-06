@@ -26,11 +26,15 @@
 <script>
 import LoginForm from "_c/login-form";
 import { mapActions } from "vuex";
+import axios from "@/libs/api.request";
+import store from "@/store";
+import { initRouter } from "@/libs/router-util";
+
 export default {
   components: {
     LoginForm
   },
-  data () {
+  data() {
     return {
       processing: false,
       loading: false
@@ -38,12 +42,13 @@ export default {
   },
   methods: {
     ...mapActions(["handleLogin", "getUserInfo"]),
-    handleSubmit ({ userName, password }) {
+    handleSubmit({ userName, password }) {
       var target = this;
       this.loading = true;
       this.handleLogin({ userName, password })
         .then(res => {
-          if (res.data.code == 200) {
+          console.log(res.data.success);
+          if (res.data.success == true) {
             this.processing = true;
             this.$Message.loading({
               duration: 0,
@@ -52,9 +57,11 @@ export default {
             });
             this.getUserInfo().then(res => {
               setTimeout(() => {
+                initRouter(target);
                 this.$router.push({
                   name: "home"
                 });
+
                 setTimeout(() => {
                   this.$Message.destroy();
                 }, 1000);
@@ -89,7 +96,7 @@ export default {
   font-size: 40px;
 }
 .bg {
-  background: url('../../assets/images/login-bg.jpg');
+  background: url("../../assets/images/login-bg.jpg");
   height: 100%;
   text-align: center;
   line-height: 100%;

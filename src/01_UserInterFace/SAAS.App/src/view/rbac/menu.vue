@@ -140,9 +140,9 @@
     <Drawer
       :title="formTitle"
       v-model="formModel.opened"
-      width="400"
-      :mask-closable="false"
-      :mask="false"
+      width="600"
+      :mask-closable="true"
+      :mask="true"
       :styles="styles"
     >
       <Form :model="formModel.fields" ref="formMenu" :rules="formModel.rules" label-position="left">
@@ -155,9 +155,12 @@
         <FormItem label="URL地址" prop="url" label-position="left">
           <Input v-model="formModel.fields.url" placeholder="请输入URL地址"/>
         </FormItem>
+        <FormItem label="前端组件(.vue)" prop="url" label-position="left">
+          <Input v-model="formModel.fields.component" placeholder="前端组件(以.vue结尾,组件必须位于/views文件夹)"/>
+        </FormItem>
         <Row :gutter="8">
           <Col span="12">
-            <FormItem>
+            <FormItem prop="icon">
               <Select
                 v-model="formModel.fields.icon"
                 filterable
@@ -235,6 +238,29 @@
         </Row>
         <Row>
           <Col span="12">
+            <FormItem label="菜单隐藏" label-position="left">
+              <i-switch
+                size="large"
+                v-model="formModel.fields.hideInMenu"
+                :true-value="1"
+                :false-value="0"
+              >
+                <span slot="open">是</span>
+                <span slot="close">否</span>
+              </i-switch>
+            </FormItem>
+          </Col>
+          <Col span="12">
+            <FormItem label="不缓存页面" label-position="left">
+              <i-switch size="large" v-model="formModel.fields.notCache" :true-value="1" :false-value="0">
+                <span slot="open">是</span>
+                <span slot="close">否</span>
+              </i-switch>
+            </FormItem>
+          </Col>
+        </Row>
+        <Row>
+          <Col span="12">
             <FormItem label="排序" label-position="left">
               <InputNumber :min="0" v-model="formModel.fields.sort"></InputNumber>
             </FormItem>
@@ -292,7 +318,7 @@ export default {
           icon: {}
         },
         fields: {
-          guid: "",
+          id: "",
           name: "",
           icon: "",
           url: "",
@@ -322,6 +348,13 @@ export default {
               message: "请输入菜单名称",
               min: 2
             }
+          ],
+          icon: [
+            {
+              type: "string",
+              required: true,
+              message: "请选择菜单图标"
+            }
           ]
         }
       },
@@ -330,18 +363,14 @@ export default {
           query: {
             totalCount: 0,
             pageSize: 20,
-            currentPage: 1,
+            PageIndex: 1,
             kw: "",
-            isDeleted: 0,
-            status: -1,
+            where:{ isDeleted: -1,
+            status: -1},
             parentGuid: "",
             parentName: "请选择...",
-            sort: [
-              {
-                direct: "DESC",
-                field: "id"
-              }
-            ]
+             SortCol: 1, 
+            OrderBy:"id"
           },
           sources: {
             isDeletedSources: [
@@ -377,7 +406,7 @@ export default {
               render: (h, params) => {
                 return h("Icon", {
                   props: {
-                    type: params.row.icon,
+                    type: params.row.icon==""?"md-menu":params.row.icon,
                     size: 24
                   }
                 });
@@ -513,9 +542,10 @@ export default {
               title: "操作",
               align: "center",
               key: "handle",
-              width: 150,
+              width: 100,
               className: "table-command-column",
               options: ["edit"],
+              fixed:"right",
               button: [
                 (h, params, vm) => {
                   return h(
@@ -634,14 +664,15 @@ export default {
       return this.formModel.selection;
     },
     selectedRowsId() {
-      return this.formModel.selection.map(x => x.guid);
+      return this.formModel.selection.map(x => x.id);
     }
   },
   methods: {
     loadMenuList() {
       getMenuList(this.stores.menu.query).then(res => {
-        this.stores.menu.data = res.data.data;
-        this.stores.menu.query.totalCount = res.data.totalCount;
+         this.stores.menu.data = res.data.data.body;
+        this.stores.menu.query.totalCount = res.data.data.count;
+       
       });
     },
     handleOpenFormWindow() {
@@ -660,7 +691,7 @@ export default {
     handleEdit(params) {
       this.handleSwitchFormModeToEdit();
       this.handleResetFormMenu();
-      this.doLoadMenu(params.row.guid);
+      this.doLoadMenu(params.row.id);
     },
     handleSelect(selection, row) {},
     handleSelectionChange(selection) {
@@ -690,25 +721,25 @@ export default {
     },
     doCreateMenu() {
       createMenu(this.formModel.fields).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("创建成功");
           this.handleCloseFormWindow();
           this.loadMenuList();
           this.handleRefreshMenuTreeData();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
     },
     doEditMenu() {
       editMenu(this.formModel.fields).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("编辑成功");
           this.handleCloseFormWindow();
           this.loadMenuList();
           this.handleRefreshMenuTreeData();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
     },
@@ -724,14 +755,16 @@ export default {
       });
       return _valid;
     },
-    doLoadMenu(guid) {
-      loadMenu({ guid: guid }).then(res => {
+    doLoadMenu(id) {
+      loadMenu({ id: id }).then(res => {
+        debugger
+       
         this.formModel.fields = res.data.data.model;
         this.stores.menuTree.data = res.data.data.tree;
       });
     },
     handleDelete(params) {
-      this.doDelete(params.row.guid);
+      this.doDelete(params.row.id);
     },
     doDelete(ids) {
       if (!ids) {
@@ -739,11 +772,11 @@ export default {
         return;
       }
       deleteMenu(ids).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("删除成功");
           this.loadMenuList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
     },
@@ -769,12 +802,12 @@ export default {
         command: command,
         ids: this.selectedRowsId.join(",")
       }).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success("操作成功");
           this.loadMenuList();
           this.formModel.selection=[];
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
         this.$Modal.remove();
       });
@@ -790,13 +823,17 @@ export default {
     },
     doLoadMenuTree() {
       loadMenuTree(null).then(res => {
+        console.log( res.data.data);
+        
         this.stores.menuTree.data = res.data.data;
       });
     },
     handleMenuTreeSelectChange(nodes) {
+      debugger
       var node = nodes[0];
+      console.log(node);
       if (node) {
-        this.formModel.fields.parentGuid = node.guid;
+        this.formModel.fields.parentGuid = node.id;
         this.formModel.fields.parentName = node.title;
       }
     },
@@ -811,7 +848,7 @@ export default {
     handleSearchMenuTreeSelectChange(nodes) {
       var node = nodes[0];
       if (node) {
-        this.stores.menu.query.parentGuid = node.guid;
+        this.stores.menu.query.parentGuid = node.id;
         this.stores.menu.query.parentName = node.title;
       }
       this.loadMenuList();

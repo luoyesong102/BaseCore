@@ -2,7 +2,7 @@ import axios from '@/libs/api.request'
 
 export const getUserList = (data) => {
   return axios.request({
-    url: 'rbac/user/list',
+    url: 'rbac/user/userlist',
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export const getUserList = (data) => {
 // createUser
 export const createUser = (data) => {
   return axios.request({
-    url: 'rbac/user/create',
+    url: 'rbac/user/createuser',
     method: 'post',
     data
   })
@@ -19,8 +19,9 @@ export const createUser = (data) => {
 
 //loadUser
 export const loadUser = (data) => {
+  debugger;
   return axios.request({
-    url: 'rbac/user/edit/' + data.guid,
+    url: 'rbac/user/edituser/' + data.id,
     method: 'get'
   })
 }
@@ -28,7 +29,7 @@ export const loadUser = (data) => {
 // editUser
 export const editUser = (data) => {
   return axios.request({
-    url: 'rbac/user/edit',
+    url: 'rbac/user/updateuser',
     method: 'post',
     data
   })
@@ -37,7 +38,7 @@ export const editUser = (data) => {
 // delete user
 export const deleteUser = (ids) => {
   return axios.request({
-    url: 'rbac/user/delete/' + ids,
+    url: 'rbac/user/deleteuser/' + ids,
     method: 'get'
   })
 }
@@ -45,16 +46,16 @@ export const deleteUser = (ids) => {
 // batch command
 export const batchCommand = (data) => {
   return axios.request({
-    url: 'rbac/user/batch',
-    method: 'get',
-    params: data
+    url: 'rbac/user/batchuser',
+    method: 'post',
+    data
   })
 }
 
 // save user roles
 export const saveUserRoles = (data) => {
   return axios.request({
-    url: 'rbac/user/save_roles',
+    url: 'rbac/user/saveroles',
     method: 'post',
     data
   })

@@ -267,7 +267,7 @@ export default {
         mode: "create",
         selection: [],
         fields: {
-          code: "",
+          id: "",
           name: "",
           actionCode: "",
           avatar: "",
@@ -275,7 +275,7 @@ export default {
           status: 1,
           isDeleted: 0,
           type: 1,
-          menuGuid: "",
+          menuId: "",
           menuName: "",
           description: ""
         },
@@ -318,18 +318,14 @@ export default {
           query: {
             totalCount: 0,
             pageSize: 20,
-            currentPage: 1,
+             PageIndex: 1,
             kw: "",
-            isDeleted: 0,
-            status: -1,
-            menuGuid: "",
+            where:{ isDeleted: -1,
+            status: -1},
+            menuId: "",
             menuName: "请选择...",
-            sort: [
-              {
-                direct: "DESC",
-                field: "CreatedOn"
-              }
-            ]
+            SortCol: 1, 
+            OrderBy:"id"
           },
           columns: [
             { type: "selection", width: 50, key: "handle" },
@@ -602,14 +598,16 @@ export default {
       return this.formModel.selection;
     },
     selectedRowsId() {
-      return this.formModel.selection.map(x => x.code);
+      return this.formModel.selection.map(x => x.id);
     }
   },
   methods: {
     loadPermissionList() {
       getPermissionList(this.stores.permission.query).then(res => {
-        this.stores.permission.data = res.data.data;
-        this.stores.permission.query.totalCount = res.data.totalCount;
+        console.log(res.data.data.body);
+         this.stores.permission.data = res.data.data.body;
+        this.stores.permission.query.totalCount = res.data.data.count;
+       
       });
     },
     handleOpenFormWindow() {
@@ -628,7 +626,7 @@ export default {
     handleEdit(params) {
       this.handleSwitchFormModeToEdit();
       this.handleResetFormPermission();
-      this.doLoadPermission(params.row.code);
+      this.doLoadPermission(params.row.id);
     },
     handleSelect(selection, row) {},
     handleSelectionChange(selection) {
@@ -656,28 +654,28 @@ export default {
     },
     handleResetFormPermission() {
       this.$refs["formPermission"].resetFields();
-      this.formModel.fields.menuGuid = "";
+      this.formModel.fields.menuId = "";
       this.formModel.fields.menuName = "";
     },
     doCreatePermission() {
       createPermission(this.formModel.fields).then(res => {
-        if (res.data.code == 200) {
+        if (res.data.success === true) {
           this.$Message.success("操作成功");
           this.handleCloseFormWindow();
           this.loadPermissionList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
     },
     doEditPermission() {
       editPermission(this.formModel.fields).then(res => {
-        if (res.data.code == 200) {
+        if (res.data.success === true) {
           this.$Message.success("操作成功");
           this.handleCloseFormWindow();
           this.loadPermissionList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
     },
@@ -693,14 +691,14 @@ export default {
       });
       return _valid;
     },
-    doLoadPermission(code) {
-      loadPermission({ code: code }).then(res => {
+    doLoadPermission(id) {
+      loadPermission({ id: id }).then(res => {
         this.formModel.fields = res.data.data;
-        this.handleRefreshMenuTreeData(this.formModel.fields.menuGuid);
+        this.handleRefreshMenuTreeData(this.formModel.fields.menuId);
       });
     },
     handleDelete(params) {
-      this.doDelete(params.row.code);
+      this.doDelete(params.row.id);
     },
     doDelete(ids) {
       if (!ids) {
@@ -708,11 +706,11 @@ export default {
         return;
       }
       deletePermission(ids).then(res => {
-        if (res.data.code == 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success('删除成功');
           this.loadPermissionList();
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
       });
     },
@@ -738,12 +736,12 @@ export default {
         command: command,
         ids: this.selectedRowsId.join(",")
       }).then(res => {
-        if (res.data.code === 200) {
-          this.$Message.success(res.data.message);
+        if (res.data.success === true) {
+          this.$Message.success('操作成功');
           this.loadPermissionList();
           this.formModel.selection=[];
         } else {
-          this.$Message.warning(res.data.message);
+          this.$Message.warning(res.data.error.errorMessage);
         }
         this.$Modal.remove();
       });
@@ -773,7 +771,7 @@ export default {
     handleMenuTreeSelectChange(nodes) {
       var node = nodes[0];
       if (node) {
-        this.formModel.fields.menuGuid = node.guid;
+        this.formModel.fields.menuId = node.id;
         this.formModel.fields.menuName = node.title;
       }
     },
@@ -788,7 +786,7 @@ export default {
     handleSearchMenuTreeSelectChange(nodes) {
       var node = nodes[0];
       if (node) {
-        this.stores.permission.query.menuGuid = node.guid;
+        this.stores.permission.query.menuId = node.id;
         this.stores.permission.query.menuName = node.title;
       }
       this.loadPermissionList();
@@ -803,7 +801,7 @@ export default {
       }
     },
     handleClearSearchMenuTreeSelection() {
-      this.stores.permission.query.menuGuid = "";
+      this.stores.permission.query.menuId = "";
       this.stores.permission.query.menuName = "请选择...";
       this.loadPermissionList();
     }

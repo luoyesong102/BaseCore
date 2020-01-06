@@ -2,7 +2,7 @@ import axios from '@/libs/api.request'
 
 export const getIconList = (data) => {
   return axios.request({
-    url: 'rbac/icon/list',
+    url: 'rbac/icon/iconlist',
     method: 'post',
     data
   })
@@ -11,7 +11,7 @@ export const getIconList = (data) => {
 // create icon
 export const createIcon = (data) => {
   return axios.request({
-    url: 'rbac/icon/create',
+    url: 'rbac/icon/createicon',
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export const createIcon = (data) => {
 //load icon
 export const loadIcon = (data) => {
   return axios.request({
-    url: 'rbac/icon/edit/' + data.id,
+    url: 'rbac/icon/geticon/' + data.id,
     method: 'get'
   })
 }
@@ -28,7 +28,7 @@ export const loadIcon = (data) => {
 // edit icon
 export const editIcon = (data) => {
   return axios.request({
-    url: 'rbac/icon/edit',
+    url: 'rbac/icon/updateicon',
     method: 'post',
     data
   })
@@ -37,17 +37,18 @@ export const editIcon = (data) => {
 // delete icon
 export const deleteIcon = (ids) => {
   return axios.request({
-    url: 'rbac/icon/delete/' + ids,
+    url: 'rbac/icon/deleteicon/' + ids,
     method: 'get'
   })
 }
 
 // batch command
 export const batchCommand = (data) => {
+  debugger
   return axios.request({
-    url: 'rbac/icon/batch',
-    method: 'get',
-    params: data
+    url: 'rbac/icon/batchicon',
+    method: 'post',
+    data
   })
 }
 
@@ -55,7 +56,7 @@ export const batchCommand = (data) => {
 // batch import
 export const batchImportIcon = (data) => {
   return axios.request({
-    url: 'rbac/icon/import',
+    url: 'rbac/icon/importicon',
     method: 'post',
     data
   })
@@ -67,7 +68,7 @@ export const batchImportIcon = (data) => {
 // find icon data source by keyword
 export const findIconDataSourceByKeyword = (data) => {
   return axios.request({
-    url: 'rbac/icon/find_list_by_kw/' + data.keyword,
+    url: 'rbac/icon/findiconlistbykw/' + data.keyword,
     method: 'get'
   })
 }

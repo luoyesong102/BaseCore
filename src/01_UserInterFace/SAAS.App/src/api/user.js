@@ -8,13 +8,22 @@ export const login = ({
   userName,
   password
 }) => {
-  return _axios.get(authUrl + '?username=' + userName + '&password=' + password)
+  var data = {username:userName,password:password};
+  return axios.request({
+    url: 'Login',
+    method: 'post',
+    data,
+    withPrefix: false,  
+    prefix:"api/Auth/"
+  })
+ 
 }
 
 export const getUserInfo = (token) => {
   return axios.request({
-    url: 'account/profile',
+    url: 'account/account/getuserinfo',
     method: 'get'
+  
   })
 }
 
@@ -26,7 +35,7 @@ export const logout = (token) => {
 
 export const getUnreadCount = () => {
   return axios.request({
-    url: 'message/count',
+    url: 'messasge/Message/count',
     hideError: false,
     method: 'get'
   })
@@ -34,35 +43,35 @@ export const getUnreadCount = () => {
 
 export const getMessage = () => {
   return axios.request({
-    url: 'message/init',
+    url: 'messasge/Message/init',
     method: 'get'
   })
 }
 
 export const getContentByMsgId = msg_id => {
   return axios.request({
-    url: 'message/content/' + msg_id,
+    url: 'messasge/Message/content/' + msg_id,
     method: 'get'
   })
 }
 
 export const hasRead = msg_id => {
   return axios.request({
-    url: 'message/has_read/' + msg_id,
+    url: 'messasge/Message/hasread/' + msg_id,
     method: 'get',
   })
 }
 
 export const removeReaded = msg_id => {
   return axios.request({
-    url: 'message/remove_readed/' + msg_id,
+    url: 'messasge/Message/removeread/' + msg_id,
     method: 'get'
   })
 }
 
 export const restoreTrash = msg_id => {
   return axios.request({
-    url: 'message/restore/' + msg_id,
+    url: 'messasge/Message/restore/' + msg_id,
     method: 'get'
   })
 }
