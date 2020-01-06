@@ -1,55 +1,3 @@
-# 说明
-  该代码是极简的跨平台下的框架封装，包含基本知识点很多，每个点都最小拆解开来进行封装，已在linux下进行了生成环境运行  
-  
-  0采用VUE+IVIEW+Dapper+Ef,分层采用领域建模的思想  
-
-  1通用Framework的nuget包已上传https://nuget.org，大家可以搜索SAAS.FrameWork.IOC在项目中使用 
-  
-  2已采用docker进行发布镜像，大家可从https://cloud.docker.com拉取镜像docker pull  luoyesong102/saas.api:1.0.1 
-  
-  3配合gitlab-cicd使用，可参考.gitlab-ci.yml进行自动化构建  
-
-  4大家可关注net_jiang公众号，有配套基础知识讲解。  
-  
-  
-# 跨平台知识点
-   1:DDD领域分层原则,前后端分离，后端负责数据，前端负责路由和数据绑定,nginx负责反向代理,负载均衡，限流等,linux下docker镜像管理，守护进程或者K8S部署  
-
-   2：封装最小组件封装：服务注入，IOC容器封装,AUTOFAC动态服务注入，Swagger定制版本管理中间件， JWT认证及扩展角色定制化中间件，全局配置文件管理,slqxml管理，全局用户对象管理,序列化赋值管理，Dapper多DB的操作，EF多DB操作，AOP管道中间件日志，内部发布订阅消息，缓存，EXCEL,文件操作,TCP的scoket通信，CAP外部消息及自定义消息组件，APM跟踪，EKL日志中心,gitlb源代码管理，jekens自动化发布，动态查询条件处理  	
-   
-   3：单体linux下部署：主要服务：nginx，守护进程，或者docker镜像管理，KS8编排容器管理 ,linux下需要的软件开发组件：mysql ,gitlab ,jare,mindoc,jekens,dockerhub,nguget,k8s,redis,nginx,rabitmq,ekl,skaywaring
-
-#  跨平台改进			  
-              IIS太重分离出来轻量级WEB服务器 
-              
-              MVC太重分离出来路由  
-
-	          Identityserver认证太重,采用jwt  
-
-			  配置文件太多，统一中间件管理  
-
-			  服务注册太多，统一AUTOFAC去管理  
-
-              webapi注入中间件太重，抽象出网关中间件去认证（其他协议网关）分布式微服务，网关+服务治理 
-              
-              k8s太重，采用守护进程  
-
-	          EF太重,采用轻量级dapper（二者皆可实现）  
-
-	          分层太重，尽量在同一解决方案中,三层架构到DDD领域模型，只是设计上的改变  
-
-#  未来的形态          
-  企业级->互联网->微服务  
-  1：企业级易开发维护的系统架构：注重设计和系统扩展性，稳定性，易维护性  
-
-  2: 跨平台下单体webapi：在一定性能上能支持互联网并发量不大的用户体验，本身除了服务之间的通信需要上升至微服务架构，一般符合主流互联网产品开发模式
-
-  3：跨平台微服务架构:由于认证，限流等具有通用性，采用网关统一入口，服务注册进行管理，服务发现进行服务调用，要求网关的性能，以及服务之间的解耦调用
-
-
-
-
-
 #  知识点说明    
 1:配置文件使用    ConfigurationManager.Instance.Get<string>("ConnectionStrings", "Redis");  
 
@@ -129,5 +77,4 @@ string testClass = @" Action<ConsoleApp1.ModelA> action=(m)=>{ m.result = m.valu
 23：认证：JWT认证，    有identityserver认证（分离资源服务器和认证服务器） 
 
 24：Swagger管理接口及版本以及配合认证  
-
 

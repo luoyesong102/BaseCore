@@ -1,13 +1,41 @@
 # 跨平台基础平台
  采用Vue+WebApi前后端分离的方式进行开发，包含基础权限，统一认证，任务管理，消息中心，中间件，基础组件为业务系统提供基础服务，能更好的隔离业务和基础架构  
  业务系统架构在此基础上进行演变：中间件，基础组件将发布为NuGet包进行引用，其他认证，任务，消息将采用服务的方式来提供使用
+该代码是极简的跨平台下的框架封装，已在linux下进行了生成环境运行
 
-# 说明  
+# 功能说明  
  功能:基础权限管理,IdentityS4统一认证管理(Oauth2.0客户端，用户密码,Code,单点模式)，任务管理平台  ，消息管理平台
  中间件:JWT认证,异常,配置管理,sql管理，swagger接口管理（Nuget包）  
  组件:ioc,反射，消息，db(支持mssql和mysql)，请求响应格式，DB验证，业务对象验证(Nuget包)  
  部署:nginx+docker+k8s部署  
- 微服务:cap,kong,istio运用（未来应用的方向）  
+ 微服务:cap,kong,istio运用（未来应用的方向）
+
+# 架构及部署
+   1采用VUE+IVIEW+Dapper+Ef,分层采用领域建模的思想   
+   2DDD领域分层原则,前后端分离，后端负责数据，前端负责路由和数据绑定,nginx负责反向代理,负载均衡，限流等,linux下docker镜像管理，守护进程或者K8S部署   
+  3通用Framework的nuget包已上传https://nuget.org，大家可以搜索SAAS.FrameWork.IOC在项目中使用
+  4封装最小组件封装：服务注入，IOC容器封装,AUTOFAC动态服务注入，Swagger定制版本管理中间件， JWT认证及扩展角色定制化中间件，全局配置文件管理,slqxml管理，全局用户对象管理,序列化赋值管理，Dapper多DB的操作，EF多DB操作，AOP管道中间件日志，内部发布订阅消息，缓存，EXCEL,文件操作,TCP的scoket通信，CAP外部消息及自定义消息组件，APM跟踪，EKL日志中心,gitlb源代码管理，jekens自动化发布，动态查询条件处理     
+  5已采用docker进行发布镜像，大家可从https://cloud.docker.com拉取镜像docker pull  luoyesong102/saas.api:1.0.1 
+  6配合gitlab-cicd使用，可参考.gitlab-ci.yml进行自动化构建 
+  7单体linux下部署：主要服务：nginx，守护进程，或者docker镜像管理，KS8编排容器管理 ,linux下需要的软件开发组件：mysql ,gitlab ,jare,mindoc,jekens,dockerhub,nguget,k8s,redis,nginx,rabitmq,ekl,skaywaring   
+  8大家可关注net_jiang公众号，有配套基础知识讲解。
+
+#  跨平台改进			  
+              IIS太重分离出来轻量级WEB服务器 
+              MVC太重分离出来路由  
+              Identityserver认证太重,采用jwt  
+              配置文件太多，统一中间件管理  
+              服务注册太多，统一AUTOFAC去管理  
+              webapi注入中间件太重，抽象出网关中间件去认证（其他协议网关）分布式微服务，网关+服务治理 
+              k8s太重，采用守护进程  
+              EF太重,采用轻量级dapper（二者皆可实现）  
+             分层太重，尽量在同一解决方案中,三层架构到DDD领域模型，只是设计上的改变  
+
+#  未来的形态          
+  企业级->互联网->微服务  
+  1：企业级易开发维护的系统架构：注重设计和系统扩展性，稳定性，易维护性  
+  2:  跨平台下单体webapi：在一定性能上能支持互联网并发量不大的用户体验，本身除了服务之间的通信需要上升至微服务架构，一般符合主流互联网产品开发模式
+  3：跨平台微服务架构:由于认证，限流等具有通用性，采用网关统一入口，服务注册进行管理，服务发现进行服务调用，要求网关的性能，以及服务之间的解耦调用
 
 # .NET Docker 发布 
 # 前提条件  
@@ -90,3 +118,20 @@ services:
         
 # 例子  
 你可以在这个仓库里找到更多的 Docker 样例 : https://github.com/dotnet/dotnet-docker  
+
+# 参考
+跨平台  VUE+WebApi(前后端分离)+统一认证+EF(Dapper)
+      https://cloud.tencent.com/developer/article/1375603  DncZeus
+      https://github.com/cq-panda/Vue.NetCore    vue+netcore
+      https://gitee.com/dugukuangshao/HPMessageCenter   rabbitmq
+      https://github.com/zdz72113/NETCore_BasicKnowledge.Examples  base 
+      https://github.com/EdisonChou/EDC.IdentityServer4.Samples  Indentity
+      https://github.com/sersms/Sers_NetCore_HelloWorld  minsoft
+
+微服务 (kong+k8s推荐)（基础设施：网关，服务治理，监控，部署,CI-CD）
+    https://www.cnblogs.com/royzshare/p/10114198.html  JWT认证
+    https://blog.csdn.net/playermaker57/article/details/86760521  devops
+    https://www.cnblogs.com/edisonchou/p/aspnet_core_k8s_artcles_index.html  K8S
+    https://www.cnblogs.com/edisonchou/p/dotnetcore_microservice_foundation_blogs_index_draft.html 微服务
+    https://www.cnblogs.com/xishuai/p/microservices-and-service-mesh.html  微服务和服务网格
+    https://www.cnblogs.com/WithLin/p/9343406.html   网关

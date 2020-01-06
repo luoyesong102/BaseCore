@@ -83,7 +83,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapper", "dapper", "{C82EF2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbSql", "DbSql", "{24515B16-A51F-4D19-9887-DCEB56A07321}"
 	ProjectSection(SolutionItems) = preProject
-		C:\Users\LENOVO\Desktop\Login.sql = C:\Users\LENOVO\Desktop\Login.sql
+		src\00_Document\LoginDB.sql = src\00_Document\LoginDB.sql
 		C:\Users\LENOVO\Desktop\Sys_Base_Db.sql = C:\Users\LENOVO\Desktop\Sys_Base_Db.sql
 	EndProjectSection
 EndProject
