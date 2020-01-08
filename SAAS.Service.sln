@@ -107,6 +107,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService", "src\02_Appli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityS4", "src\01_UserInterFace\SAAS.IdentityS4\IdentityS4.csproj", "{A0232D3E-69BB-458A-B615-039E8C077865}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAAS.APIGateway", "src\01_UserInterFace\SAAS.APIGateway\SAAS.APIGateway.csproj", "{872E55A9-63C6-405D-9A39-45619BD7A2BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,6 +235,10 @@ Global
 		{A0232D3E-69BB-458A-B615-039E8C077865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0232D3E-69BB-458A-B615-039E8C077865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0232D3E-69BB-458A-B615-039E8C077865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{872E55A9-63C6-405D-9A39-45619BD7A2BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{872E55A9-63C6-405D-9A39-45619BD7A2BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{872E55A9-63C6-405D-9A39-45619BD7A2BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{872E55A9-63C6-405D-9A39-45619BD7A2BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -280,6 +286,7 @@ Global
 		{6D1CD9D3-2BF9-40DF-8E6A-6F6DAABC7EEE} = {3153E7CD-B12C-4037-8F11-9586C4A25E99}
 		{CA963959-960C-4D73-AA8D-E9A9ED0DCDF1} = {195A2905-D1C4-4D72-8DD2-CF122ED15B22}
 		{A0232D3E-69BB-458A-B615-039E8C077865} = {D6046951-53A7-4F10-9619-F5717D0F2FF2}
+		{872E55A9-63C6-405D-9A39-45619BD7A2BE} = {D6046951-53A7-4F10-9619-F5717D0F2FF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {529E56C3-8A30-4D4A-85C8-725F0B4293E9}
