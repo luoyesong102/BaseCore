@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata;
 namespace SysBase.Domain.Models
 {
     /// <summary>
-    /// 由于注入的问题 数据库连接先进行注入，延时加载微软已经不再启用（需要的话需要扩展引用包启动延迟加载https://blog.csdn.net/xhl_james/article/details/93136893）
+    /// 由于注入的问题 数据库连接先进行注入，延时加载微软已经不再启用
+    /// 需要的话需要扩展引用包启动延迟加载https://blog.csdn.net/xhl_james/article/details/93136893）
+    /// install-package Microsoft.EntityFrameworkCore.Proxies      optionsBuilder.UseLazyLoadingProxies();  或者用iloadLazyer
     /// 封装会使用显示加载include
     /// </summary>
     public partial class SysBaseDbContext : DbContext
@@ -18,12 +20,8 @@ namespace SysBase.Domain.Models
         {
             //if (!optionsBuilder.IsConfigured)
             //{
-            //    optionsBuilder.UseSqlServer("Data Source=SC-201610011543\\MYDB;Initial Catalog=Sys_Base_Db;User ID=sa;Password=Jianglei105;MultipleActiveResultSets=True;");
+            //    optionsBuilder.UseSqlServer("Data Source=DESKTOP-4UNR39U\\SQLEXPRESS;Initial Catalog=Sys_Base_Db;User ID=sa;Password=123456abcD;MultipleActiveResultSets=True;");
             //}
-            //var loggerFactory = new LoggerFactory();
-            //loggerFactory.AddProvider(new EFLoggerProvider());
-            //optionsBuilder.UseLoggerFactory(loggerFactory);
-
 
         }
         public virtual DbSet<SysIcon> SysIcon { get; set; }

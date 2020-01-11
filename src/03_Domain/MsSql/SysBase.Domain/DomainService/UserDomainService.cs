@@ -71,8 +71,7 @@ namespace SysBase.Domain.DomainService
        
         public SysUser GetUser(string username)
         {
-           
-              var sysmodel= _UserRepository.Get(u => u.UserName == username).FirstOrDefault();
+            var sysmodel= _UserRepository.Get(u => u.UserName == username).FirstOrDefault();
             return sysmodel;
         }
         public  void UpdateStatus(UserStatus status, string ids)

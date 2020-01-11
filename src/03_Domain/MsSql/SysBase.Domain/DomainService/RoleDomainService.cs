@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using static Common.Service.CommonEnum;
@@ -20,11 +21,13 @@ namespace SysBase.Domain.DomainService
      public  class RoleDomainService
     {
         private readonly ISysRepositoryBase<SysRole> _roleRepository;
-  
+        private readonly ISysRepositoryBase<SysUserRoleMapping> _UserRepository;
+
         private readonly SysUnitOfWork _unitOfWork;  
-        public RoleDomainService(ISysRepositoryBase<SysRole> roleRepository, SysUnitOfWork unitOfWork)
+        public RoleDomainService(ISysRepositoryBase<SysRole> roleRepository, ISysRepositoryBase<SysUserRoleMapping> userRepository, SysUnitOfWork unitOfWork)
         {
             _roleRepository = roleRepository;
+            _UserRepository = userRepository;
             _unitOfWork = unitOfWork;
         }
         /// <summary>
@@ -36,21 +39,27 @@ namespace SysBase.Domain.DomainService
         {
 
             var sysmodel = _roleRepository.Get(u => rolelist.Contains(u.Id)).ToList();
+            //var sysmodel1 = _roleRepository.Get(u => rolelist.Contains(u.Id), null, new List<Expression<Func<SysRole, object>>> {
+            //x=>x.SysUserRoleMapping,
+            //y=>y.SysRolePermissionMapping
+            //}).ToList();
             return sysmodel;
         }
         public List<SysRole> GetUserRoleList(Guid userid)
         {
             //有N+1次查询的性能问题
-            //var query = _dbContext.DncUser
-            //    .Include(r => r.UserRoles)
-            //    .ThenInclude(x => x.DncRole)
-            //    .Where(x => x.Guid == guid);
-            //var roles = query.FirstOrDefault().UserRoles.Select(x => new
+            //var query = _roleRepository.DBContext.SysUser
+            //    .Include(r => r.SysUserRoleMapping)
+            //    .Where(x => x.Id == userid);
+            //var roles = query.FirstOrDefault().SysUserRoleMapping.Select(x => new
             //{
-            //    x.DncRole.Code,
-            //    x.DncRole.Name
+            //    x.RoleCodeNavigation.Id,
+            //    x.UserGu.DisplayName
             //});
-            var sql = @"SELECT R.* FROM Sys_UserRoleMapping AS URM
+            //var test= _UserRepository.Get(u => u.UserId == userid);
+          
+
+              var sql = @"SELECT R.* FROM Sys_UserRoleMapping AS URM
                      INNER JOIN Sys_Role AS R ON R.Id=URM.RoleId
                      WHERE URM.UserId={0}";
            return _roleRepository.LoadAllBySql<SysRole>(sql,userid).ToList();  

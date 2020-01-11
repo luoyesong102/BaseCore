@@ -47,11 +47,8 @@ namespace SAAS.Api
             var sqlconnction = Configuration.GetSection(nameof(ConnectionStrings));
             services.AddDbContextPool<SysBaseDbContext>(options =>
             {
-                options.UseSqlServer(sqlconnction[nameof(ConnectionStrings.Sys_Db)]);//安装 UseLazyLoadingProxies().  Microsoft.EntityFrameworkCore.Abstractions 启用延时加载
+                options.UseSqlServer(sqlconnction[nameof(ConnectionStrings.Sys_Db)]);
             });
-            //services.AddDbContext<SysBaseDbContext>(option => option.UseSqlServer(sqlconnction[nameof(ConnectionStrings.Sys_Db)]));
-            //services.AddScoped<SysUnitOfWork>();
-            //services.AddTransient(typeof(ISysRepositoryBase<>), typeof(SysRepositoryBase<>));
             services.AddSingleton(item => new IdWorker(1, Configuration.GetValue<int>("ObjAttr:ServerNodeNo")));
         }
         /// <summary>
