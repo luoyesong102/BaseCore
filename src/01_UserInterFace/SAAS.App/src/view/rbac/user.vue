@@ -399,20 +399,28 @@ export default {
       this.handleResetFormUser();
     },
     handleSubmitUser() {
-      let valid = this.validateUserForm();
-      if (valid) {
-        if (this.formModel.mode === "create") {
+     // let valid = this.validateUserForm();
+     // console.log(valid);
+     this.$refs["formUser"].validate(valid => {
+        if (!valid) {
+          this.$Message.error("请完善表单信息");
+        } else {
+          if (this.formModel.mode === "create") {
+             debugger;
           this.doCreateUser();
         }
         if (this.formModel.mode === "edit") {
           this.doEditUser();
         }
-      }
+         
+        }
+      });
     },
     handleResetFormUser() {
       this.$refs["formUser"].resetFields();
     },
     doCreateUser() {
+      debugger;
       createUser(this.formModel.fields).then(res => {
         if (res.data.success === true) {
           this.$Message.success('添加成功');
@@ -435,15 +443,17 @@ export default {
       });
     },
     validateUserForm() {
-      let _valid = false;
+      let _valid = true;
       this.$refs["formUser"].validate(valid => {
         if (!valid) {
+          _valid=false;
           this.$Message.error("请完善表单信息");
         } else {
           _valid = true;
+         
         }
       });
-      return _valid;
+       return _valid;
     },
     doLoadUser(id) {
       loadUser({ id: id }).then(res => {
