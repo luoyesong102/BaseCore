@@ -114,8 +114,9 @@ export default {
     },
     setMenuList(state, routes) {
       state.menuList = getMenuListByRoutes(routes);
+      
     },
-    // 接受前台数组，刷新菜单
+    // 接受前台数组，需要重启路由，然后添加路由，路由和菜单少个组件而已刷新菜单
     refreshMenuList(state, routes) {
       resetRouter();
       router.addRoutes(routes.concat([{
@@ -123,6 +124,7 @@ export default {
         redirect: '/404'
       }]), { replace: true })
       state.menuList = routes
+      
     }
   },
   actions: {

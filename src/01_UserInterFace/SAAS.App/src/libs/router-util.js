@@ -25,7 +25,7 @@ export const initRouter = (vm) => {
     var menuData = res.data.data
     // 格式化菜单
     list = formatMenu(menuData)
-    
+    console.log('inintrouter:'+JSON.stringify(list));
     // 刷新界面菜单
     //vm.$store.commit('setMenuList', list)
     vm.$store.commit('refreshMenuList', list)
@@ -51,7 +51,7 @@ export const loadMenu = () => {
   return list
 }
 
-// 格式化菜单
+// 格式化菜单formatMenu
 export const formatMenu = (list) => {
   let res = []
   forEach(list, item => {
