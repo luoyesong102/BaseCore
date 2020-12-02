@@ -17,43 +17,14 @@
 # 开源地址
  GITHUB地址：[https://github.com/luoyesong102/BaseCore]
 
-# 功能说明  
- 功能:基础权限管理,IdentityS4统一认证管理(Oauth2.0客户端，用户密码,Code,单点模式)，任务管理平台  ，消息管理平台
- 中间件:JWT认证,异常,配置管理,sql管理，swagger接口管理（Nuget包）  
- 组件:ioc,反射，消息，db(支持mssql和mysql)，请求响应格式，DB验证，业务对象验证(Nuget包)  
- 部署:nginx+docker+k8s部署 
- 微服务：网关，统一认证，日志，服务APM监控，Cap分布式事务一致性，resful和rpc协议（进行中） 
- K8S:cap,kong,istio运用，未来应用的方向:要解决容器编排，监控，服务监控问题 （进行中）
  
 # 功能与进度
 
-- [x] 采用仓储+服务+接口的形式封装框架；
-- [x] 使用Swagger做api文档；
-- [x] 使用MiniProfiler做接口性能分析；
-- [x] 使用Automapper做Dto处理；
-- [x] 接入SqlSugar ORM，封装数据库操作； 
-- [x] 项目启动，自动生成seed种子数据； 
-- [x] 五种日志记录，审计/异常/请求响应/服务操作/Sql记录等；  
-- [x] 支持自由切换多种数据库，Sqlite/SqlServer/MySql/PostgreSQL/Oracle；
-- [x] 异步async/await开发；
-- [x] 支持事务；
-- [x] AutoFac接入做依赖注入；
-- [x] 支持AOP切面编程；
-- [x] 支持CORS跨域；
-- [x] 支持T4代码模板，自动生成每层代码；
-- [x] 支持一键创建自己项目；
-- [x] 封装 JWT 自定义策略授权；
-- [x] 使用Log4Net日志框架+自定义日志输出；
-- [x] 使用SingleR推送日志信息到管理后台；
-- [x] 搭配前端Blog项目，vue开发；
-- [x] 搭配一个Admin管理后台，用vue+ele开发；
-- [x] IdentityServer4 认证;
-- [x] API 限速;
-- [x] 作业调度 Quartz.net;
-- [x] Sqlsugar 读写分离;
-- [ ] 支付;
-- [ ] Redis/RBMQ 队列;
-- [ ] 数据部门权限;
+- [x] 前端Iview框架：前端vue；
+- [x] 后端WebApi：后端接口；
+- [x] 认证：统一认证；
+- [x] 网关：反向代理统一入口；
+- [x] nginx：前端部署+负载均衡；
 
 # 架构及部署
    1采用VUE+IVIEW+Dapper+Ef,分层采用领域建模的思想   
